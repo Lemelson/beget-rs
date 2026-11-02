@@ -1,0 +1,30 @@
+[package]
+name = "beget-rs"
+version = "0.9.3"
+edition = "2021"
+rust-version = "1.75"
+description = "Clean-room, 1:1 API-compatible reimplementation of the Beget shared hosting stack in Rust"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/Lemelson/beget-rs"
+readme = "README.md"
+keywords = ["hosting", "beget", "shared-hosting", "control-panel", "blazingly-fast"]
+categories = ["web-programming::http-server", "command-line-utilities"]
+
+[[bin]]
+name = "begetd"
+path = "src/main.rs"
+
+[lib]
+name = "beget"
+path = "src/lib.rs"
+
+# Intentionally zero dependencies.
+# The upstream stack pulls in ~14k PHP files, we pull in std.
+[dependencies]
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+panic = "abort"
+strip = true
+opt-level = 3
